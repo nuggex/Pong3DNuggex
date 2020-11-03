@@ -9,6 +9,7 @@ public class BallSpawner : MonoBehaviour
     public GameObject preFabBall;
     public GameObject ball;
     Rigidbody rb;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,9 +21,19 @@ public class BallSpawner : MonoBehaviour
     {
         if (!ball)
         {
-            float randomDirection = Random.Range(-50, 50);
-            ball = Instantiate(preFabBall, SpawnPoint.transform.position, preFabBall.transform.rotation);
-            ball.GetComponent<Rigidbody>().AddForce(ball.transform.forward*randomDirection, ForceMode.Impulse);
+            float RandomForce = Random.Range(25,50);
+            int RandomRange = Random.Range(-1, 1);
+            if (RandomRange == 0) RandomForce *= -1.0f;
+            ball = Instantiate(preFabBall, SpawnPoint.transform.position, Quaternion.Euler(0,Random.Range(0,55),0));
+            ball.GetComponent<Rigidbody>().AddForce(ball.transform.forward*RandomForce, ForceMode.Impulse);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "ball")
+        {
+            GameManager.instance.playerScore += (int)Score.hitball;
         }
     }
 }

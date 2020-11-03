@@ -11,11 +11,43 @@ public class BallControl : MonoBehaviour
         GameManager.instance.currentBall = gameObject;
         ballRB = gameObject.GetComponent<Rigidbody>();
     }
+
+    private void Update()
+    {
+        if(transform.position.y > 51 || transform.position.y < -1 || transform.position.x > 51 ||transform.position.x < -51 ||transform.position.z > 55 ||transform.position.z < -55)
+        {
+            Destroy(gameObject);
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.collider.tag == "paddle")
         {
-            ballRB.AddForce(-ballRB.velocity + collision.rigidbody.velocity, ForceMode.Impulse);
+            ballRB.AddForce(-ballRB.velocity* 5f, ForceMode.Impulse);
         }
+        if(collision.collider.tag == "wall")
+        {
+            ballRB.AddForce(ballRB.velocity * 0.8f, ForceMode.Impulse);
+        }
+        if(collision.collider.tag == "floor")
+        {
+            ballRB.AddForce(ballRB.velocity * 0.9f, ForceMode.Impulse);
+
+        }
+        if (collision.collider.name == "GoalP1")
+        {
+            GameManager.instance.computerScore += (int)Score.goal;
+        }
+        if (collision.collider.name == "GoalP2")
+        {
+            GameManager.instance.playerScore += (int)Score.goal;
+        }
+
+        if (collision.collider.tag == "goal")
+        {
+            Destroy(gameObject);
+        }
+        
+
     }
 }

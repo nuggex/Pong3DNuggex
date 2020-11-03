@@ -8,6 +8,9 @@ TagManager:
   - paddle1
   - paddle2
   - ball
+  - wall
+  - floor
+  - goal
   layers:
   - Default
   - TransparentFX
