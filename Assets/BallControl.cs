@@ -23,23 +23,25 @@ public class BallControl : MonoBehaviour
     {
         if(collision.collider.tag == "paddle")
         {
-            ballRB.AddForce(-ballRB.velocity* 5f, ForceMode.Impulse);
+            ballRB.AddForce(-ballRB.velocity* 3f, ForceMode.Impulse);
         }
         if(collision.collider.tag == "wall")
         {
-            ballRB.AddForce(ballRB.velocity * 0.8f, ForceMode.Impulse);
+            ballRB.AddForce(ballRB.velocity * 0.5f, ForceMode.Impulse);
         }
         if(collision.collider.tag == "floor")
         {
-            ballRB.AddForce(ballRB.velocity * 0.9f, ForceMode.Impulse);
+            ballRB.AddForce(ballRB.velocity * 0.5f, ForceMode.Impulse);
 
         }
         if (collision.collider.name == "GoalP1")
         {
+            GameManager.instance.ReturnAwardPC(-5.0f);
             GameManager.instance.computerScore += (int)Score.goal;
         }
         if (collision.collider.name == "GoalP2")
         {
+            GameManager.instance.ReturnAwardPC(2.0f); 
             GameManager.instance.playerScore += (int)Score.goal;
         }
 

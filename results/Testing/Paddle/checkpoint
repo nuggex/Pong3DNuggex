@@ -1,0 +1,2 @@
+model_checkpoint_path: "Paddle-22563.ckpt"
+all_model_checkpoint_paths: "Paddle-22563.ckpt"

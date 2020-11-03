@@ -11,7 +11,8 @@ public class ComputerPlayer : MonoBehaviour
     void Start()
     {
         ComputerSpawner = GameObject.Find("ComputerSpawn");
-        GameManager.instance.ComputerSpawn = ComputerSpawner;
+        GameManager.instance.ComputerSpawn = ComputerSpawner.transform;
+        GameManager.instance.Computer = gameObject;
     }
 
     // Update is called once per frame
