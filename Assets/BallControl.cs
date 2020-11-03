@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class BallControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Rigidbody ballRB;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        GameManager.instance.currentBall = gameObject;
+        ballRB = gameObject.GetComponent<Rigidbody>();
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.tag == "paddle")
+        {
+            ballRB.AddForce(-ballRB.velocity + collision.rigidbody.velocity, ForceMode.Impulse);
+        }
     }
 }
