@@ -24,22 +24,22 @@ public class PaddleController : Agent
     {
         if (vectorAction[0] > 0 && (transform.position.x > -50f && transform.position.x < 50f))
         {
-            AddReward(0.01f);
+            AddReward(0.001f);
             transform.position += transform.right * Time.deltaTime * PaddleSpeed;
         }
         if (vectorAction[1] > 0 && (transform.position.x > -50f && transform.position.x < 50f))
         {
-            AddReward(0.01f);
+            AddReward(0.001f);
             transform.position -= transform.right * Time.deltaTime * PaddleSpeed;
         }
         if (vectorAction[2] > 0 && (transform.position.y > 0f && transform.position.x < 50f))
         {
-            AddReward(0.01f);
+            AddReward(0.001f);
             transform.position += transform.up * Time.deltaTime * PaddleSpeed;
         }
         if (vectorAction[3] > 0 && (transform.position.y > 0f && transform.position.x < 50f))
         {
-            AddReward(0.01f);
+            AddReward(0.001f);
             transform.position -= transform.up * Time.deltaTime * PaddleSpeed;
         }
     }
@@ -61,12 +61,12 @@ public class PaddleController : Agent
     {
         if (GameManager.instance.playerScore > 100)
         {
-            AddReward(10f);
+            AddReward(2.0f);
             EndEpisode();
         }
         if(GameManager.instance.computerScore > 100)
         {
-            AddReward(-10f);
+            AddReward(-2.0f);
             EndEpisode();
         }
 
@@ -81,7 +81,9 @@ public class PaddleController : Agent
     public override void Heuristic(float[] actionsOut)
     {
         actionsOut[0] = 0f;
-        actionsOut[0] = 0f;
+        actionsOut[1] = 0f;
+        actionsOut[2] = 0f;
+        actionsOut[3] = 0f;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             if (transform.position.x > -50f && transform.position.x < 50f)
@@ -114,17 +116,14 @@ public class PaddleController : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(transform.position);
-
         if (GameManager.instance.currentBall) sensor.AddObservation(GameManager.instance.currentBall.transform.position);
-        sensor.AddObservation(GameManager.instance.playerScore);
-        sensor.AddObservation(GameManager.instance.Computer.transform.position);
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.tag == "ball")
         {
             GameManager.instance.playerScore += (int)Score.hitball;
-            AddReward(0.2f);
+            AddReward(0.025f);
         }
     }
 
@@ -134,7 +133,7 @@ public class PaddleController : Agent
         if (Time.time - timer > 300)
         {
             // Add Time Penalty to rewards // 
-            AddReward(-10f);
+            AddReward(-1f);
             // End Episode // 
             EndEpisode();
         }

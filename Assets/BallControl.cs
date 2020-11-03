@@ -14,17 +14,17 @@ public class BallControl : MonoBehaviour
 
     private void Update()
     {
-        if(transform.position.y > 51 || transform.position.y < -1 || transform.position.x > 51 ||transform.position.x < -51 ||transform.position.z > 55 ||transform.position.z < -55)
+        if(ballRB.velocity.magnitude > 400 || transform.position.y > 51 || transform.position.y < -1 || transform.position.x > 51 ||transform.position.x < -51 ||transform.position.z > 55 ||transform.position.z < -55)
         {
             Destroy(gameObject);
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.tag == "paddle")
+        /*if(collision.collider.tag == "paddle")
         {
-            ballRB.AddForce(-ballRB.velocity* 3f, ForceMode.Impulse);
-        }
+            ballRB.AddForce(-ballRB.velocity, ForceMode.Impulse);
+        }*/
         if(collision.collider.tag == "wall")
         {
             ballRB.AddForce(ballRB.velocity * 0.5f, ForceMode.Impulse);
@@ -36,12 +36,12 @@ public class BallControl : MonoBehaviour
         }
         if (collision.collider.name == "GoalP1")
         {
-            GameManager.instance.ReturnAwardPC(-5.0f);
+            GameManager.instance.ReturnAwardPC(-1.0f);
             GameManager.instance.computerScore += (int)Score.goal;
         }
         if (collision.collider.name == "GoalP2")
         {
-            GameManager.instance.ReturnAwardPC(2.0f); 
+            GameManager.instance.ReturnAwardPC(1.0f); 
             GameManager.instance.playerScore += (int)Score.goal;
         }
 

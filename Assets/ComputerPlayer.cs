@@ -7,7 +7,7 @@ public class ComputerPlayer : MonoBehaviour
     GameObject ball;
     Transform ballposition;
     GameObject ComputerSpawner;
-    float PaddleSpeed = 0.3f;
+    float PaddleSpeed = 0.45f;
     void Start()
     {
         ComputerSpawner = GameObject.Find("ComputerSpawn");
@@ -35,7 +35,7 @@ public class ComputerPlayer : MonoBehaviour
 
             Vector3 targetBall = new Vector3(ballposition.position.x, ballposition.position.y, gameObject.transform.position.z);
             float DistanceToBall = Vector3.Distance(gameObject.transform.position, ballposition.position);
-            if (DistanceToBall < 60) gameObject.transform.position = Vector3.MoveTowards(transform.position, targetBall, PaddleSpeed);
+            if (DistanceToBall < 100) gameObject.transform.position = Vector3.MoveTowards(transform.position, targetBall, PaddleSpeed);
         }
     }
     private void OnCollisionEnter(Collision collision)
