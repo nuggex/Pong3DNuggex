@@ -6,14 +6,16 @@ public class ComputerPlayer : MonoBehaviour
 {
     GameObject ball;
     Transform ballposition;
+    GameObject ComputerSpawner;
     float PaddleSpeed = 0.3f;
     void Start()
     {
-
+        ComputerSpawner = GameObject.Find("ComputerSpawn");
+        GameManager.instance.ComputerSpawn = ComputerSpawner;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         ball = GameManager.instance.currentBall;
