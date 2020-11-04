@@ -11,6 +11,8 @@ TagManager:
   - wall
   - floor
   - goal
+  - westwall
+  - eastwall
   layers:
   - Default
   - TransparentFX
